@@ -1,6 +1,45 @@
 import React, { useState } from 'react';
 import './App.css';
 import InputField from './Components/InputField';
+import { Todo } from './Components/model';
+import TodoList from "./Components/ToDoList";
+
+
+
+
+const App: React.FC = () => {
+  const [todo, setTodo] = useState<string>("");
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+
+  const handleAdd = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (todo) { // If todo is not empty}
+      setTodos([...todos, { id: Date.now(), todo, isDone: false }]);
+      setTodo(""); // Clear the input field after adding
+    }
+  };
+
+
+  
+  console.log(todos);
+  // const [name, setName] = useState<string>("Tinesh Shah");
+  return (
+    <div className="App">
+      <span className="heading">Taskify</span>
+      <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd}/>
+      <TodoList todos={todos} setTodos={setTodos} />
+    </div>
+  );
+}
+
+
+
+
+
+
+// TypeScript Basics
+
 let name: string;
 let age: number;
 let isStudent: boolean;
@@ -34,26 +73,4 @@ function printCoord(pt: someobject) {
 printCoord({ x: 3, y: 7 });
 
 let personName: unknown; //Dont know what it returs.
-
-
-
-
-
-
-
-
-
-
-
-const App: React.FC = () => {
-  const [todo, setTodo] = useState<string>("");
-  // const [name, setName] = useState<string>("Tinesh Shah");
-  return (
-    <div className="App">
-      <span className="heading">Taskify</span>
-      <InputField todo={todo} setTodo={setTodo}/>
-    </div>
-  );
-}
-
 export default App;
